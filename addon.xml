@@ -19,7 +19,7 @@
         </item>
     </extension>
 
-    <extension point="xbmc.gui.skin" debugging="true" effectslowdown="1.0">
+    <extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
         <res width="1280" height="720" aspect="16:9" default="true"
             folder="resources/skins/default/720p" />
     </extension>
