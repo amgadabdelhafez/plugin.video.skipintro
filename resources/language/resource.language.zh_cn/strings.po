@@ -1,0 +1,179 @@
+# Kodi Media Center language file
+# Addon Name: Skip Intro
+# Addon id: plugin.video.skipintro
+# Addon Provider: Amgad Abdelhafez
+msgid ""
+msgstr ""
+"Project-Id-Version: Skip Intro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-13 12:00+0000\n"
+"PO-Revision-Date: 2025-07-09 10:00+0800\n"
+"Last-Translator: wabisabi926\n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.5\n"
+
+msgctxt "#32000"
+msgid "Intro Skipping Settings"
+msgstr "片头跳过设置"
+
+msgctxt "#32001"
+msgid "Delay Before Prompt"
+msgstr "提示前延迟"
+
+msgctxt "#32002"
+msgid "Number of seconds to wait before showing the skip intro prompt (0-300 seconds)"
+msgstr "显示跳过片头提示前等待的秒数（0-300 秒）"
+
+msgctxt "#32003"
+msgid "Skip Duration"
+msgstr "跳过持续时间"
+
+msgctxt "#32004"
+msgid "Number of seconds to skip forward when using the default skip (10-300 seconds)"
+msgstr "使用默认跳过时向前跳过的秒数（10-300 秒）"
+
+msgctxt "#32010"
+msgid "Database Settings"
+msgstr "数据库设置"
+
+msgctxt "#32011"
+msgid "Database Location"
+msgstr "数据库位置"
+
+msgctxt "#32012"
+msgid "Path where the show database will be stored"
+msgstr "剧集数据库存储路径"
+
+msgctxt "#32013"
+msgid "Use Chapter Markers"
+msgstr "使用章节标记"
+
+msgctxt "#32014"
+msgid "Use video chapter markers to detect intros (skips from intro chapter to next chapter)"
+msgstr "使用视频章节标记检测片头（从片头章节跳到下一章节）"
+
+msgctxt "#32015"
+msgid "Use Online API"
+msgstr "使用在线 API"
+
+msgctxt "#32016"
+msgid "Use online API to fetch intro/outro times (coming soon)"
+msgstr "使用在线 API 获取片头/片尾时间（即将推出）"
+
+msgctxt "#32017"
+msgid "API Key"
+msgstr "API 密钥"
+
+msgctxt "#32018"
+msgid "API key for online service (not required yet)"
+msgstr "在线服务的 API 密钥（暂不需要）"
+
+msgctxt "#32019"
+msgid "Save Show Times"
+msgstr "保存剧集时间"
+
+msgctxt "#32020"
+msgid "Save intro/outro times for shows to use in future playback"
+msgstr "保存剧集的片头/片尾时间供未来播放使用"
+
+msgctxt "#32030"
+msgid "Set Show Times"
+msgstr "设置剧集时间"
+
+msgctxt "#32031"
+msgid "Enter times in seconds for intro/outro points"
+msgstr "以秒为单位输入片头/片尾点的时间"
+
+msgctxt "#32040"
+msgid "Show Settings"
+msgstr "剧集设置"
+
+msgctxt "#32041"
+msgid "Use Show Defaults"
+msgstr "使用剧集默认值"
+
+msgctxt "#32042"
+msgid "Use the same intro/outro times for all episodes of a show"
+msgstr "对一部剧的所有剧集使用相同的片头/片尾时间"
+
+msgctxt "#32045"
+msgid "Default Intro Duration"
+msgstr "默认片头持续时间"
+
+msgctxt "#32046"
+msgid "Duration of intro sequence when using show defaults (10-300 seconds)"
+msgstr "使用剧集默认值时片头序列的持续时间（10-300 秒）"
+
+msgctxt "#32050"
+msgid "Intro/Outro Points"
+msgstr "片头/片尾点"
+
+msgctxt "#32051"
+msgid "Intro Start Chapter"
+msgstr "片头开始章节"
+
+msgctxt "#32052"
+msgid "Chapter to start skipping from (0 or empty for video start)"
+msgstr "开始跳过的章节（0 或留空表示视频开始）"
+
+msgctxt "#32053"
+msgid "Intro End Chapter"
+msgstr "片头结束章节"
+
+msgctxt "#32054"
+msgid "Chapter to skip to (required)"
+msgstr "要跳到的章节（必填）"
+
+msgctxt "#32055"
+msgid "Outro Start Chapter"
+msgstr "片尾开始章节"
+
+msgctxt "#32056"
+msgid "Chapter to skip from for outro (optional)"
+msgstr "片尾开始跳过的章节（可选）"
+
+msgctxt "#32057"
+msgid "Intro Start Time"
+msgstr "片头开始时间"
+
+msgctxt "#32058"
+msgid "Time to start skipping from in seconds (0 or empty for video start)"
+msgstr "开始跳过的时间（秒）（0 或留空表示视频开始）"
+
+msgctxt "#32059"
+msgid "Intro End Time"
+msgstr "片头结束时间"
+
+msgctxt "#32060"
+msgid "Time to skip to in seconds (required)"
+msgstr "要跳到的时间（秒）（必填）"
+
+msgctxt "#32061"
+msgid "Outro Start Time"
+msgstr "片尾开始时间"
+
+msgctxt "#32062"
+msgid "Time to skip from for outro in seconds (optional)"
+msgstr "片尾开始跳过的时间（秒）（必填）"
+
+# Set Skip Intro Times
+msgctxt "#32070"
+msgid "Set Skip Intro Times"
+msgstr "设置跳过片头时间"
+
+msgctxt "#32071"
+msgid "choose skip method"
+msgstr "选择跳过方式"
+
+msgctxt "#32072"
+msgid "Manual time input"
+msgstr "手动输入时间"
+
+msgctxt "#32073"
+msgid "Chapter selection"
+msgstr "章节选择"

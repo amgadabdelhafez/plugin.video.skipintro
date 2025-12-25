@@ -1,309 +1,309 @@
-# Skip Intro Addon
+# 跳过片头插件
 
-The Skip Intro Addon for Kodi intelligently detects, remembers, and skips TV show intros using multiple detection methods and a smart database system.
+Kodi 的 Skip Intro Addon 可通过多种检测方法和智能数据库系统智能检测、记忆和跳过电视节目的开场白。
 
-## Features
+## 特点
 
-- **Smart Show Detection**
+- **智能显示检测**
 
-  - Automatically identifies TV shows and episodes
-  - Works with both Kodi metadata and filename parsing
-  - Supports common naming formats (SxxExx, xxXxx)
+  - 自动识别电视节目和剧集
+  - 支持 Kodi 元数据和文件名解析
+  - 支持常见的命名格式（SxxExx、xxXxx）
 
-- **Intro/Outro Management**
+- **简介/外展管理**
 
-  - Saves intro/outro times for each episode
-  - Reuses saved times for future playback
-  - Multiple detection methods:
-    - Database of saved times
-    - Chapter markers
-    - Configurable default timing
-    - Online API support (coming soon)
+- 保存每一集的开场白/片尾曲时间
+  - 重复使用保存的时间，以便将来播放
+  - 多种检测方法：
+    - 保存时间数据库
+    - 章节标记
+    - 可配置的默认时间
+    - 支持在线应用程序接口（即将推出）
 
-- **User-Friendly Interface**
+- **用户友好界面**
 
-  - Clean, focused skip button in bottom right
-  - Auto-focused for immediate skipping
-  - Works with remote control, keyboard, and mouse
-  - Smooth fade in/out animations
-  - Non-intrusive design
+　- 右下方的跳过按钮干净利落、重点突出
+  - 自动聚焦，可立即跳过
+  - 可与遥控器、键盘和鼠标配合使用
+  - 平滑的淡入/淡出动画
+  - 非侵入式设计
 
-- **Technical Features**
-  - Efficient time tracking using native Kodi events
-  - SQLite database for efficient storage
-  - Smart duration parsing (HH:MM:SS, MM:SS)
-  - Comprehensive error handling
-  - Detailed logging
-  - Full localization support
+- **技术特点**
+  - 使用本地 Kodi 事件高效追踪时间
+  - 用于高效存储的 SQLite 数据库
+  - 智能持续时间解析（HH:MM:SS、MM:SS）
+  - 全面的错误处理
+  - 详细日志记录
+  - 完全本地化支持
 
-## Installation
+## 安装
 
-1. **Download the Addon:**
+1. **下载插件：**
 
-   - Go to the [Releases](https://github.com/amgadabdelhafez/plugin.video.skipintro/releases) section
-   - Download the latest release zip file
+   - 前往 [Releases](https://github.com/amgadabdelhafez/plugin.video.skipintro/releases) 部分
+   - 下载最新版本的 zip 文件
 
-2. **Install in Kodi:**
+2. **在 Kodi 中安装：**
 
-   - Open Kodi > Add-ons
-   - Click the "Package" icon (top-left)
-   - Select "Install from zip file"
-   - Navigate to the downloaded zip file
-   - Wait for installation confirmation
+   - 打开 Kodi > 插件
+   - 点击 “软件包”图标（左上角）
+   - 选择 “从压缩文件安装”
+   - 导航至下载的压缩文件
+   - 等待安装确认
 
-3. **Enable the Addon:**
-   - Go to Settings > Add-ons
-   - Find "Skip Intro" under Video Add-ons
-   - Enable the addon
+3. **启用插件：**
+   - 转到设置 > 附加组件
+   - 在视频插件下找到“跳过介绍”
+   - 启用插件
 
-## Configuration
+## 配置
 
-The addon provides three categories of settings:
+本插件提供三类设置：
 
-1. **Intro Skipping Settings**
+1. **片头跳过设置**
 
-   - **Delay Before Prompt** (0-300 seconds)
-     - How long to wait before showing the skip prompt
-     - Default: 30 seconds
-   - **Skip Duration** (10-300 seconds)
-     - How far forward to skip when using default skip
-     - Default: 60 seconds
+   - **提示前延迟**（0-300秒）
+     - 显示跳过提示前的等待时间
+     - 默认值：30秒
+   - **跳过时长**（10-300秒）
+     - 使用默认跳过功能时向前跳过的时间
+     - 默认值：60秒
 
-2. **Database Settings**
+2. **数据库设置**
 
-   - **Database Location**
-     - Where to store the show database
-     - Default: special://userdata/addon_data/plugin.video.skipintro/shows.db
-   - **Use Chapter Markers**
-     - Enable/disable chapter-based detection
-     - Default: Enabled
-   - **Use Online API**
-     - Enable/disable online time source (coming soon)
-     - Default: Disabled
-   - **Save Times**
-     - Whether to save detected times for future use
-     - Default: Enabled
+   - **数据库位置**
+     - 存储节目数据库的位置
+     - 默认值：special://userdata/addon_data/plugin.video.skipintro/shows.db
+   - **使用章节标记**
+     - 启用/禁用基于章节的检测
+     - 默认值：启用
+   - **使用在线API**
+     - 启用/禁用在线时间源（即将推出）
+     - 默认值：禁用
+   - **保存时间**
+     - 是否保存检测到的时间供将来使用
+     - 默认值：启用
 
-3. **Show Settings**
-   - **Use Show Defaults**
-     - Use the same intro/outro times for all episodes
-     - Default: Enabled
-   - **Use Chapter Numbers**
-     - Use chapter numbers instead of timestamps
-     - Default: Disabled
-   - **Default Intro Duration**
-     - Duration of intro when using show defaults
-     - Default: 60 seconds
+3. **节目设置**
+   - **使用节目默认值**
+     - 对所有集使用相同的片头/片尾时间
+     - 默认值：启用
+   - **使用章节编号**
+     - 使用章节编号代替时间戳
+     - 默认值：禁用
+   - **默认片头时长**
+     - 使用节目默认值时的片头时长
+     - 默认值：60秒
 
-## How It Works
+## 工作原理
 
-The addon uses multiple methods to detect and skip intros:
+本插件使用多种方法来检测和跳过片头：
 
-1. **Database Lookup:**
+1. **数据库查找**：
 
-   - Identifies current show and episode
-   - Checks database for saved times
-   - Uses saved times if available
+   - 识别当前节目和集数
+   - 检查数据库中是否有保存的时间
+   - 如有保存的时间则使用
 
-2. **Chapter Detection:**
+2. **章节检测**：
 
-   - Looks for chapters named "Intro End"
-   - When found, offers to skip to that point
-   - Can save times for future use
+   - 查找名为"Intro End"（片头结束）的章节
+   - 找到后，提供跳转到该点的选项
+   - 可以保存时间供将来使用
 
-3. **Manual Input:**
+3. **手动输入**：
 
-   There are two ways to access the time input feature:
+   有两种方式可以访问时间输入功能：
 
-   1. Through Skip Intro Button:
+   1. 通过跳过片头按钮：
 
-      - When the skip button appears, press menu/info
-      - Choose chapters or enter manual times
-      - Times are saved for future playback
+      - 当跳过按钮出现时，按菜单/信息键
+      - 选择章节或输入手动时间
+      - 时间将保存供将来播放使用
 
-   2. Through Library Context Menu:
-      - In Kodi's TV show library, select a show or episode
-      - Press 'C' or right-click to open context menu
-      - Select "Set Show Times"
-      - If the file has chapters:
-        - Select chapters for intro start/end
-        - Select chapter for outro start (optional)
-        - Times are saved automatically
-      * If no chapters available:
-        - Enter intro start time and duration
-        - Enter outro start time (optional)
-        - Choose whether to use for all episodes
+   2. 通过媒体库上下文菜单：
+      - 在Kodi的电视节目库中，选择一个节目或集
+      - 按'C'键或右键点击打开上下文菜单
+      - 选择"设置节目时间"
+      - 如果文件有章节：
+        - 选择片头开始/结束的章节
+        - 选择片尾开始的章节（可选）
+        - 时间将自动保存
+      * 如果没有章节可用：
+        - 输入片头开始时间和时长
+        - 输入片尾开始时间（可选）
+        - 选择是否对所有集使用这些时间
 
-   When setting times, if chapters are available:
+   设置时间时，如果章节可用：
 
-   - You'll be prompted to select chapters for:
-     - Intro Start: Where the intro begins
-     - Intro End: Where the intro finishes
-     - Outro Start: Where the end credits begin
-   - Chapter names and timestamps are shown
-   - Selecting chapters automatically sets the times
+   - 系统会提示您选择以下章节：
+     - 片头开始：片头开始的位置
+     - 片头结束：片头结束的位置
+     - 片尾开始：片尾字幕开始的位置
+   - 会显示章节名称和时间戳
+   - 选择章节会自动设置时间
 
-   If no chapters are available, or if you prefer manual input:
+   如果没有章节可用，或者您更喜欢手动输入：
 
-   - Enter times in MM:SS format for:
-     - Intro Start Time
-     - Intro Duration
-     - Outro Start Time (optional)
-   - Choose whether to use these times for all episodes
+   - 以MM:SS格式输入以下时间：
+     - 片头开始时间
+     - 片头时长
+     - 片尾开始时间（可选）
+   - 选择是否对所有集使用这些时间
 
-   All times are saved in the database and used for future playback of the show.
+   所有时间都保存在数据库中，并用于该节目的将来播放。
 
-4. **Default Skip:**
+4. **默认跳过**：
 
-   - Falls back to configured delay if no other times found
-   - Shows skip button after delay time
-   - Option to save user-confirmed times
+   - 如果没有找到其他时间，将回退到配置的延迟时间
+   - 延迟时间后显示跳过按钮
+   - 可选择保存用户确认的时间
 
-5. **Online API** (Coming Soon):
-   - Will fetch intro/outro times from online database
-   - Requires API key (not yet implemented)
+5. **在线API**（即将推出）：
+   - 将从在线数据库获取片头/片尾时间
+   - 需要API密钥（尚未实现）
 
-## Repository Setup
+## 仓库设置
 
-To enable automatic updates:
+要启用自动更新：
 
-1. **Add Repository:**
+1. **添加仓库**：
 
-   - In Kodi > Add-ons > Package icon
-   - Select "Install from zip file"
-   - Navigate to `repository.plugin.video.skipintro.zip`
-   - Wait for installation
+   - 在Kodi中 > 插件 > 包图标
+   - 选择"从zip文件安装"
+   - 导航到`repository.plugin.video.skipintro.zip`
+   - 等待安装完成
 
-2. **Updates:**
-   - Kodi will automatically check for updates
-   - Install updates through Kodi's addon manager
+2. **更新**：
+   - Kodi将自动检查更新
+   - 通过Kodi的插件管理器安装更新
 
-## Development
+## 开发
 
-### Requirements
+### 要求
 
 - Python 3.x
-- Kodi 19 (Matrix) or newer
+- Kodi 19（Matrix）或更高版本
 
-### Testing
+### 测试
 
-The addon includes comprehensive unit tests:
+本插件包含全面的单元测试：
 
 ```bash
 python3 test_video_metadata.py -v
 ```
 
-### Building
+### 构建
 
-Use the included build script:
+使用附带的构建脚本：
 
 ```bash
 ./build.sh
 ```
 
-This will:
+这将：
 
-- Create addon zip file
-- Generate repository files
-- Update version information
+- 创建插件zip文件
+- 生成仓库文件
+- 更新版本信息
 
-### Project Structure
+### 项目结构
 
 ```
 plugin.video.skipintro/
-├── addon.xml           # Addon metadata and dependencies
-├── default.py         # Main addon code
+├── addon.xml           # 插件元数据和依赖项
+├── default.py         # 主要插件代码
 ├── resources/
 │   ├── lib/
-│   │   ├── database.py   # Database operations
-│   │   └── metadata.py   # Show detection
-│   ├── settings.xml   # Settings definition
-│   └── language/      # Localization files
-├── tests/             # Unit tests
-└── build.sh          # Build script
+│   │   ├── database.py   # 数据库操作
+│   │   └── metadata.py   # 节目检测
+│   ├── settings.xml   # 设置定义
+│   └── language/      # 本地化文件
+├── tests/             # 单元测试
+└── build.sh          # 构建脚本
 ```
 
-## Contributing
+## 贡献
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add/update tests
-5. Submit a pull request
+1. Fork 仓库
+2. 创建功能分支
+3. 进行修改
+4. 添加/更新测试
+5. 提交拉取请求
 
-## License
+## 许可证
 
-This project is licensed under the MIT License.
+本项目采用MIT许可证授权。
 
-## Changelog
+## 变更日志
 
-### v1.3.8 (2025-02-19)
+### v1.3.8（2025-02-19）
 
-- Fixed settings parsing errors
-- Improved database migration process
-- Resolved issues with chapter-based skip time selection
+- 修复了设置解析错误
+- 改进了数据库迁移过程
+- 解决了基于章节的跳过时间选择问题
 
-### v1.3.7 (2025-02-19)
+### v1.3.7（2025-02-19）
 
-- Improved chapter-based skip time selection
-- Enhanced database support for chapter-based configurations
-- Fixed issues with saving and retrieving chapter-based settings
+- 改进了基于章节的跳过时间选择
+- 增强了数据库对基于章节配置的支持
+- 修复了保存和检索基于章节设置的问题
 
-### v1.3.6 (2025-02-19)
+### v1.3.6（2025-02-19）
 
-- Fixed chapter-based skip time selection
-- Improved reliability by using direct chapter number input
+- 修复了基于章节的跳过时间选择
+- 通过使用直接章节编号输入提高了可靠性
 
-### v1.3.5 (2025-02-19)
+### v1.3.5（2025-02-19）
 
-- Recovered feature to set skip times based on chapters
-- Added option to choose between manual time input and chapter-based selection
-- Updated UI for improved user experience
+- 恢复了基于章节设置跳过时间的功能
+- 添加了在手动时间输入和基于章节选择之间进行选择的选项
+- 更新了用户界面以改善用户体验
 
-### v1.3.4 (2025-02-19)
+### v1.3.4（2025-02-19）
 
-- Initial attempt at fixing database schema issues
+- 首次尝试修复数据库架构问题
 
 ### v1.3.3
 
-- Fixed issue with setting manual skip times
-- Improved database structure for new show entries
-- Enhanced error handling and logging for better diagnostics
-- Added verification of saved configurations
-- Updated documentation
+- 修复了设置手动跳过时间的问题
+- 改进了新节目条目的数据库结构
+- 增强了错误处理和日志记录，以便更好地诊断问题
+- 添加了保存配置的验证
+- 更新了文档
 
 ### v1.3.2
 
-- Improved skip button UI and positioning
-- Added smooth fade animations
-- Switched to native Kodi event system
-- Better performance and reliability
-- Improved logging for troubleshooting
-- Fixed timing issues during playback
+- 改进了跳过按钮的用户界面和位置
+- 添加了平滑淡入淡出动画
+- 切换到原生Kodi事件系统
+- 更好的性能和可靠性
+- 改进了用于故障排除的日志记录
+- 修复了播放期间的时间问题
 
 ### v1.3.0
 
-- Added show-level default times
-- Added duration-based skipping
-- Added chapter number support
-- Improved database persistence
-- Better chapter name handling
-- Fixed timing issues during playback
-- Updated documentation
+- 添加了节目级别的默认时间
+- 添加了基于时长的跳过
+- 添加了章节编号支持
+- 改进了数据库持久性
+- 更好的章节名称处理
+- 修复了播放期间的时间问题
+- 更新了文档
 
 ### v1.2.93
 
-- Added HH:MM:SS duration parsing
-- Improved settings with sliders and validation
-- Added comprehensive error handling
-- Added localization support
-- Improved memory management
-- Added unit tests
+- 添加了HH:MM:SS时长解析
+- 使用滑块和验证改进了设置
+- 添加了全面的错误处理
+- 添加了本地化支持
+- 改进了内存管理
+- 添加了单元测试
 
-## Troubleshooting
+## 故障排除
 
-If you encounter any issues with setting manual skip times:
+如果您在设置手动跳过时间时遇到任何问题：
 
-1. Try setting manual skip times for a show again.
-2. If problems persist, check the Kodi log file for detailed information about the process. Look for log entries starting with "SkipIntro:".
-3. If you still experience issues, please report them on our GitHub issues page, including the relevant log entries for further investigation.
+1. 尝试再次为节目设置手动跳过时间。
+2. 如果问题仍然存在，请检查Kodi日志文件以获取有关该过程的详细信息。查找以"SkipIntro:"开头的日志条目。
+3. 如果您仍然遇到问题，请在我们的GitHub问题页面上报告，包括相关的日志条目以便进一步调查。

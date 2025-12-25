@@ -1,5 +1,5 @@
 <addon id="plugin.video.skipintro"
-    name="Skip Intro Addon"
+    name="Skip Intro"
     version="1.3.8"
     provider-name="Amgad Abdelhafez">
     <requires>
@@ -19,13 +19,14 @@
         </item>
     </extension>
 
-    <extension point="xbmc.gui.skin" debugging="true" effectslowdown="1.0">
+    <extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
         <res width="1280" height="720" aspect="16:9" default="true"
             folder="resources/skins/default/720p" />
     </extension>
 
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Smart intro/outro detection and skipping for TV shows</summary>
+        <summary lang="zh">电视剧智能片头/片尾检测与跳过</summary>
         <description lang="en">This add-on automatically detects and remembers intro/outro times for
             TV shows. Features include:
             - Automatic show and episode detection
@@ -33,6 +34,13 @@
             - Smart chapter detection using ffmpeg (will notify if not installed)
             - Chapter-based or manual time input for setting skip times
             - Configurable skip settings and database options</description>
+        <description lang="zh">此插件可自动检测并记录电视剧的片头/片尾时间点。
+            核心功能包括：
+            - 自动检测电视剧及剧集
+            - 保存片头/片尾时间点，供后续播放使用
+            - 基于 ffmpeg 的智能章节检测（若未安装将提示）
+            - 支持通过章节或手动输入时间设置跳过时段
+            - 可配置跳过设置及数据库选项</description>
         <platform>all</platform>
         <assets>
             <icon>resources/icon.png</icon>
