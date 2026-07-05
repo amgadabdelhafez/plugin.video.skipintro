@@ -1,0 +1,13 @@
+<!-- WARNING: Test container config only. Default credentials for local testing. -->
+<settings version="2">
+  <setting id="services.webserver">true</setting>
+  <setting id="services.webserverport">8080</setting>
+  <setting id="services.webserverusername">kodi</setting>
+  <setting id="services.webserverpassword">kodi</setting>
+  <setting id="services.webserverauthentication">true</setting>
+  <setting id="services.esallinterfaces">true</setting>
+  <setting id="services.esenabled">true</setting>
+  <setting id="services.esport">9090</setting>
+  <setting id="smb.winsserver"></setting>
+  <setting id="smb.workgroup">WORKGROUP</setting>
+</settings>

@@ -1,87 +1,102 @@
 import xbmc
 import xbmcgui
 import xbmcaddon
-import os
 
 class SkipIntroDialog(xbmcgui.WindowXMLDialog):
+    """Dialog that shows the skip intro button"""
+
     def __init__(self, *args, **kwargs):
         self.callback = kwargs.get('callback')
-        super(SkipIntroDialog, self).__init__(*args)
+        xbmcgui.WindowXMLDialog.__init__(self)
 
     def onInit(self):
-        xbmc.log('SkipIntro: Button window initialized', xbmc.LOGINFO)
-        try:
-            self.button = self.getControl(1)
-            xbmc.log('SkipIntro: Got button control', xbmc.LOGINFO)
-            self.setFocus(self.button)
-            xbmc.log('SkipIntro: Button focused', xbmc.LOGINFO)
-        except Exception as e:
-            xbmc.log(f'SkipIntro: Error in onInit: {str(e)}', xbmc.LOGERROR)
-            import traceback
-            xbmc.log(f'SkipIntro: Traceback: {traceback.format_exc()}', xbmc.LOGERROR)
+        """Called when dialog is initialized"""
+        # Auto-focus the button so remote works immediately
+        self.setFocusId(1)
 
     def onClick(self, controlId):
-        xbmc.log(f'SkipIntro: Button clicked - control ID: {controlId}', xbmc.LOGINFO)
+        """Called when a control is clicked"""
         if controlId == 1:  # Skip button
+            xbmc.log('SkipIntro: Skip button clicked', xbmc.LOGINFO)
+            self.close()
             if self.callback:
-                xbmc.log('SkipIntro: Executing skip callback', xbmc.LOGINFO)
                 self.callback()
-            self.close()
-
-    def onAction(self, action):
-        actionId = action.getId()
-        xbmc.log(f'SkipIntro: Button received action - ID: {actionId}', xbmc.LOGINFO)
-        if actionId in [xbmcgui.ACTION_PREVIOUS_MENU, xbmcgui.ACTION_NAV_BACK]:
-            xbmc.log('SkipIntro: Button dismissed with back/escape', xbmc.LOGINFO)
-            self.close()
 
 class PlayerUI:
+    """UI manager for skip intro functionality"""
+
     def __init__(self):
         self.prompt_shown = False
+        self.warning_shown = False
         self._dialog = None
 
+    def show_skip_button(self, seconds_until_skip=None):
+        """
+        Show the actual skip button dialog.
+
+        Args:
+            seconds_until_skip: Not used, kept for compatibility
+        """
+        # This method is now just for compatibility with timer logic
+        # The actual button is shown via prompt_skip_intro
+        return True
+
+    def show_skip_warning(self, seconds_until_skip):
+        """
+        Show a warning notification X seconds before the skip happens.
+        (Deprecated - kept for backward compatibility)
+
+        Args:
+            seconds_until_skip: How many seconds until the skip will occur
+        """
+        return self.show_skip_button(seconds_until_skip)
+
     def prompt_skip_intro(self, callback):
-        """Show skip intro button and execute callback if user clicks it"""
-        xbmc.log('SkipIntro: Showing skip intro button', xbmc.LOGINFO)
+        """
+        Show skip button dialog (non-blocking).
+
+        Args:
+            callback: Function to call when user clicks skip button
+        """
+        xbmc.log('SkipIntro: Showing skip button dialog', xbmc.LOGINFO)
         try:
-            if not self.prompt_shown and self._dialog is None:
-                addon = xbmcaddon.Addon()
-                addon_path = addon.getAddonInfo('path')
-                xml_path = os.path.join(addon_path, 'resources', 'skins', 'default', '720p', 'skip_button.xml')
-                
-                xbmc.log(f'SkipIntro: XML path: {xml_path}', xbmc.LOGINFO)
-                xbmc.log(f'SkipIntro: XML exists: {os.path.exists(xml_path)}', xbmc.LOGINFO)
-                
-                self._dialog = SkipIntroDialog(
-                    'skip_button.xml',
-                    addon_path,
-                    'default',
-                    '720p',
-                    callback=callback
-                )
-                xbmc.log('SkipIntro: Dialog instance created', xbmc.LOGINFO)
-                
-                self._dialog.show()
-                xbmc.log('SkipIntro: Dialog show() called', xbmc.LOGINFO)
-                
-                self.prompt_shown = True
-                return True
-            return False
-                
+            if self.prompt_shown:
+                xbmc.log('SkipIntro: Skip button already shown', xbmc.LOGDEBUG)
+                return False
+
+            # Show the actual button dialog
+            addon = xbmcaddon.Addon()
+            addon_path = addon.getAddonInfo('path')
+
+            self._dialog = SkipIntroDialog('skip_button.xml', addon_path, 'default', '720p', callback=callback)
+            self._dialog.show()  # Non-blocking show
+
+            self.prompt_shown = True
+            xbmc.log('SkipIntro: Skip button dialog shown', xbmc.LOGINFO)
+            return True
+
         except Exception as e:
             xbmc.log(f'SkipIntro: Error showing skip button: {str(e)}', xbmc.LOGERROR)
             import traceback
             xbmc.log(f'SkipIntro: Traceback: {traceback.format_exc()}', xbmc.LOGERROR)
-            self.cleanup()
             return False
-            
+
+    def close_dialog(self):
+        """Close the skip button dialog if it's open"""
+        if self._dialog:
+            try:
+                self._dialog.close()
+                xbmc.log('SkipIntro: Dialog closed', xbmc.LOGINFO)
+            except Exception:
+                pass
+            self._dialog = None
+
     def cleanup(self):
         """Clean up resources"""
-        if self._dialog is not None:
-            self._dialog.close()
-            self._dialog = None
+        self.close_dialog()
         self.prompt_shown = False
+        self.warning_shown = False
 
     def show_notification(self, message, time=5000):
         """Show a notification message"""
-        xbmc.executebuiltin(f'Notification(SkipIntro,{message},{time})')
+        xbmcgui.Dialog().notification('SkipIntro', str(message), xbmcgui.NOTIFICATION_INFO, time)

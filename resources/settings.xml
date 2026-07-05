@@ -2,133 +2,86 @@
     <section id="plugin.video.skipintro">
         <category id="general" label="32000">
             <group id="1">
-                <setting id="default_delay" type="integer" label="32001" help="32002">
+                <setting id="enable_autoskip" type="boolean" label="32067" help="32068">
                     <level>0</level>
-                    <default>30</default>
+                    <default>true</default>
+                    <control type="toggle" />
+                </setting>
+                <setting id="pre_skip_seconds" type="integer" label="32063" help="32064">
+                    <level>0</level>
+                    <default>3</default>
                     <constraints>
                         <minimum>0</minimum>
-                        <step>5</step>
-                        <maximum>300</maximum>
+                        <step>1</step>
+                        <maximum>10</maximum>
                     </constraints>
                     <control type="slider" format="integer" />
                 </setting>
-                <setting id="skip_duration" type="integer" label="32003" help="32004">
+                <setting id="delay_autoskip" type="integer" label="32065" help="32066">
                     <level>0</level>
-                    <default>60</default>
+                    <default>0</default>
                     <constraints>
-                        <minimum>10</minimum>
-                        <step>5</step>
-                        <maximum>300</maximum>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>30</maximum>
+                    </constraints>
+                    <control type="slider" format="integer" />
+                </setting>
+                <setting id="auto_dismiss_button" type="integer" label="32069" help="32070">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>30</maximum>
                     </constraints>
                     <control type="slider" format="integer" />
                 </setting>
             </group>
         </category>
         <category id="database" label="32010">
-            <group id="1">
-                <setting id="database_path" type="string" label="32011" help="32012">
+            <group id="1" label="32071">
+                <setting id="browse_backup_path" type="action" label="32091" help="32092">
                     <level>0</level>
-                    <default>special://userdata/addon_data/plugin.video.skipintro/shows.db</default>
+                    <control type="button" format="action">
+                        <data>RunScript(special://home/addons/plugin.video.skipintro/browse_path.py)</data>
+                    </control>
+                </setting>
+                <setting id="backup_restore_path" type="string" label="32081" help="32082">
+                    <level>0</level>
+                    <default>special://userdata/addon_data/plugin.video.skipintro/</default>
                     <constraints>
                         <allowempty>true</allowempty>
                     </constraints>
-                    <control type="edit" format="file" />
-                </setting>
-                <setting id="use_chapters" type="boolean" label="32013" help="32014">
-                    <level>0</level>
-                    <default>true</default>
-                    <control type="toggle" />
-                </setting>
-                <setting id="use_api" type="boolean" label="32015" help="32016">
-                    <level>0</level>
-                    <default>false</default>
-                    <control type="toggle" />
-                </setting>
-                <setting id="api_key" type="string" label="32017" help="32018">
-                    <level>0</level>
-                    <default></default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_api">true</dependency>
-                    </dependencies>
-                    <control type="edit" format="string" />
-                </setting>
-                <setting id="save_times" type="boolean" label="32019" help="32020">
-                    <level>0</level>
-                    <default>true</default>
-                    <control type="toggle" />
+                    <control type="edit" format="string">
+                        <heading>32081</heading>
+                    </control>
                 </setting>
             </group>
-        </category>
-        <category id="defaults" label="32040">
-            <group id="1">
-                <setting id="use_show_defaults" type="boolean" label="32041" help="32042">
+            <group id="2" label="32072">
+                <setting id="backup_database" type="action" label="32073" help="32074">
                     <level>0</level>
-                    <default>true</default>
-                    <control type="toggle" />
+                    <control type="button" format="action">
+                        <data>RunScript(special://home/addons/plugin.video.skipintro/database_tools.py,backup)</data>
+                    </control>
                 </setting>
-                <setting id="intro_duration" type="integer" label="32045" help="32046">
+                <setting id="restore_database" type="action" label="32075" help="32076">
                     <level>0</level>
-                    <default>60</default>
-                    <constraints>
-                        <minimum>10</minimum>
-                        <step>5</step>
-                        <maximum>300</maximum>
-                    </constraints>
-                    <control type="slider" format="integer" />
+                    <control type="button" format="action">
+                        <data>RunScript(special://home/addons/plugin.video.skipintro/database_tools.py,restore)</data>
+                    </control>
                 </setting>
-            </group>
-        </category>
-        <category id="skip_settings" label="32050">
-            <group id="1" label="32070">
-                <setting id="intro_start_chapter" type="integer" label="32051" help="32052">
+                <setting id="export_json" type="action" label="32077" help="32078">
                     <level>0</level>
-                    <default>0</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">true</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
+                    <control type="button" format="action">
+                        <data>RunScript(special://home/addons/plugin.video.skipintro/database_tools.py,export)</data>
+                    </control>
                 </setting>
-                <setting id="intro_end_chapter" type="integer" label="32053" help="32054">
+                <setting id="import_json" type="action" label="32079" help="32080">
                     <level>0</level>
-                    <default>1</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">true</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
-                </setting>
-                <setting id="outro_start_chapter" type="integer" label="32055" help="32056">
-                    <level>0</level>
-                    <default>0</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">true</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
-                </setting>
-            </group>
-            <group id="2" label="32071">
-                <setting id="intro_start_time" type="integer" label="32057" help="32058">
-                    <level>0</level>
-                    <default>0</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">false</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
-                </setting>
-                <setting id="intro_end_time" type="integer" label="32059" help="32060">
-                    <level>0</level>
-                    <default>90</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">false</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
-                </setting>
-                <setting id="outro_start_time" type="integer" label="32061" help="32062">
-                    <level>0</level>
-                    <default>0</default>
-                    <dependencies>
-                        <dependency type="enable" setting="use_chapters">false</dependency>
-                    </dependencies>
-                    <control type="edit" format="integer" />
+                    <control type="button" format="action">
+                        <data>RunScript(special://home/addons/plugin.video.skipintro/database_tools.py,import)</data>
+                    </control>
                 </setting>
             </group>
         </category>

@@ -9,3 +9,10 @@ build.sh
 __pycache__/
 resources/lib/reload.py
 ffmpeg-test.py
+.coverage
+htmlcov/
+.playwright-mcp/
+test-container/e2e-media/
+test-container/*.ffmetadata
+special:/
+**/passwords.xml

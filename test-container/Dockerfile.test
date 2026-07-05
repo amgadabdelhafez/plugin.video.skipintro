@@ -1,0 +1,14 @@
+# Lightweight test image — Python + SQLite only, no Kodi installation needed.
+# Works on any architecture. For full Kodi integration testing, use the
+# main Dockerfile (requires Kodi PPA which is ARM64/AMD64 only).
+
+FROM python:3.10-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends sqlite3 ffmpeg && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+VOLUME /addon
+WORKDIR /addon
+
+ENTRYPOINT ["python3", "test_video_metadata.py", "-v"]
