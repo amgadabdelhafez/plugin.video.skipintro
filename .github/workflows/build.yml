@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
 
 jobs:
   build:
@@ -12,59 +13,63 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Run build script
-        run: |
-          chmod +x build.sh
-          ./build.sh
+      - name: Install test tooling
+        run: python -m pip install coverage
 
-      - name: Create Add-on Zip
-        run: |
-          zip -r plugin.video.skipintro-${{ env.NEW_VERSION }}.zip .
+      - name: Run unit tests with coverage report
+        run: ./test-container/run-coverage.sh
 
-      - name: Update Repository XML
-        run: |
-          sed -i 's/version="[0-9.]*"/version="'${{ env.NEW_VERSION }}'"/g' release/repository.plugin.video.skipintro.xml
-          sed -i 's/plugin\.video\.skipintro-[0-9.]*.zip/plugin.video.skipintro-'${{ env.NEW_VERSION }}'.zip/g' release/repository.plugin.video.skipintro.xml
+      - name: Run unit tests in amd64 container
+        run: ./test-container/test-all.sh
+        env:
+          PLATFORM: linux/amd64
 
-      - name: Create Repository Zip
+      - name: Run E2E tests (amd64)
+        run: ./test-container/run-e2e-container.sh linux/amd64 amd64
+
+      - name: Get version from addon.xml
         run: |
-          zip -r repository.plugin.video.skipintro.zip release/repository.plugin.video.skipintro.xml
+          VERSION=$(grep -oP 'version="\K[^"]+' addon.xml | head -1)
+          echo "ADDON_VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Building version $VERSION"
+
+      - name: Create Add-on Zip (allowlist only)
+        run: |
+          mkdir -p _build/plugin.video.skipintro
+          cp addon.xml default.py context.py database_tools.py browse_path.py \
+             _build/plugin.video.skipintro/
+          cp -r resources _build/plugin.video.skipintro/
+          find _build -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+          find _build -name "*.pyc" -delete 2>/dev/null || true
+          rm -rf _build/plugin.video.skipintro/test-container 2>/dev/null || true
+          cd _build && zip -r "../plugin.video.skipintro-${ADDON_VERSION}.zip" plugin.video.skipintro/
+
+      - name: Verify zip contains no secrets
+        run: |
+          if unzip -l "plugin.video.skipintro-${ADDON_VERSION}.zip" | grep -qE '\.git/|\.github/|test_|reload\.py|passwords\.xml|\.env'; then
+            echo "ERROR: Zip contains files that should not be shipped!"
+            exit 1
+          fi
+          echo "OK"
 
       - name: Create Tag
-        id: tag
         run: |
           git config --global user.email "amgad@yahoo.com"
           git config --global user.name "amgadabdelhafez"
-          git tag -a v${{ env.NEW_VERSION }} -m "Release v${{ env.NEW_VERSION }}"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/amgadabdelhafez/plugin.video.skipintro.git v${{ env.NEW_VERSION }}
-
-      - name: Verify Tag
-        run: |
-          git fetch --tags
-          git tag --list
+          git tag -a "v${ADDON_VERSION}" -m "Release v${ADDON_VERSION}"
+          git push origin "v${ADDON_VERSION}"
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: plugin.video.skipintro-${{ env.NEW_VERSION }}.zip
-          tag_name: v${{ env.NEW_VERSION }}
+          files: plugin.video.skipintro-${{ env.ADDON_VERSION }}.zip
+          tag_name: v${{ env.ADDON_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Move Release Files
-        run: |
-          mv plugin.video.skipintro-${{ env.NEW_VERSION }}.zip release/
-          mv repository.plugin.video.skipintro.zip release/
-
-      - name: Commit and Push Changes
-        run: |
-          git add release/plugin.video.skipintro-${{ env.NEW_VERSION }}.zip release/repository.plugin.video.skipintro.zip
-          git commit -m "Update release files [skip ci]"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/amgadabdelhafez/plugin.video.skipintro.git master

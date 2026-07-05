@@ -1,0 +1,13 @@
+<!-- WARNING: Test container config only. Do NOT publish ports without changing
+     credentials. This enables Kodi's web server on all interfaces with default
+     test credentials for local development use only. -->
+<advancedsettings>
+  <services>
+    <webserver>true</webserver>
+    <webserverport>8080</webserverport>
+    <webserverusername>kodi</webserverusername>
+    <webserverpassword>kodi</webserverpassword>
+    <esallinterfaces>true</esallinterfaces>
+    <zeroconf>false</zeroconf>
+  </services>
+</advancedsettings>

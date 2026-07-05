@@ -21,19 +21,19 @@ msgid "Intro Skipping Settings"
 msgstr ""
 
 msgctxt "#32001"
-msgid "Delay Before Prompt"
+msgid "Pre-Skip Warning"
 msgstr ""
 
 msgctxt "#32002"
-msgid "Number of seconds to wait before showing the skip intro prompt (0-300 seconds)"
+msgid "Number of seconds before a known skip point to show the prompt"
 msgstr ""
 
 msgctxt "#32003"
-msgid "Skip Duration"
+msgid "Autoskip Delay"
 msgstr ""
 
 msgctxt "#32004"
-msgid "Number of seconds to skip forward when using the default skip (10-300 seconds)"
+msgid "Optional delay after a known intro start before autoskip runs"
 msgstr ""
 
 msgctxt "#32010"
@@ -101,11 +101,11 @@ msgid "Use the same intro/outro times for all episodes of a show"
 msgstr ""
 
 msgctxt "#32045"
-msgid "Default Intro Duration"
+msgid "Intro Duration"
 msgstr ""
 
 msgctxt "#32046"
-msgid "Duration of intro sequence when using show defaults (10-300 seconds)"
+msgid "Duration of intro sequence for chapter-based show settings"
 msgstr ""
 
 msgctxt "#32050"

@@ -27,8 +27,9 @@ class ShowManager:
             show_id = self.db.get_show(self.current_show['title'])
             times = {
                 'intro_start_time': intro_start,
-                'intro_duration_time': intro_duration,
+                'intro_end_time': intro_start + intro_duration,
                 'intro_start_chapter': None,
+                'intro_end_chapter': None,
                 'outro_start_chapter': None,
                 'outro_start_time': None,
                 'source': source

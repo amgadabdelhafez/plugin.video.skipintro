@@ -9,74 +9,48 @@ class Settings:
     def validate_settings(self):
         """Validate and sanitize addon settings"""
         try:
-            default_delay = int(self.addon.getSetting('default_delay'))
-            skip_duration = int(self.addon.getSetting('skip_duration'))
-            use_chapters = self.addon.getSettingBool('use_chapters')
-            use_api = self.addon.getSettingBool('use_api')
-            save_times = self.addon.getSettingBool('save_times')
-            
-            # Get chapter settings
-            intro_start_chapter = self.addon.getSetting('intro_start_chapter')
-            intro_end_chapter = self.addon.getSetting('intro_end_chapter')
-            outro_start_chapter = self.addon.getSetting('outro_start_chapter')
-            
-            # Get time settings
-            intro_start_time = self.addon.getSetting('intro_start_time')
-            intro_end_time = self.addon.getSetting('intro_end_time')
-            outro_start_time = self.addon.getSetting('outro_start_time')
-            
-            # Convert chapter settings (handle empty values)
-            intro_start_chapter = int(intro_start_chapter) if intro_start_chapter else 0
-            intro_end_chapter = int(intro_end_chapter) if intro_end_chapter else 1
-            outro_start_chapter = int(outro_start_chapter) if outro_start_chapter else None
-            
-            # Convert time settings (handle empty values)
-            intro_start_time = int(intro_start_time) if intro_start_time else 0
-            intro_end_time = int(intro_end_time) if intro_end_time else 90
-            outro_start_time = int(outro_start_time) if outro_start_time else None
-            
-            # Ensure values are within reasonable bounds
-            if default_delay < 0:
-                default_delay = 30
-                self.addon.setSetting('default_delay', '30')
-            elif default_delay > 300:  # Max 5 minutes
-                default_delay = 300
-                self.addon.setSetting('default_delay', '300')
-                
-            if skip_duration < 10:  # Min 10 seconds
-                skip_duration = 60
-                self.addon.setSetting('skip_duration', '60')
-            elif skip_duration > 300:  # Max 5 minutes
-                skip_duration = 300
-                self.addon.setSetting('skip_duration', '300')
-                
+            enable_autoskip = self.addon.getSettingBool('enable_autoskip')
+            pre_skip_seconds = int(self.addon.getSetting('pre_skip_seconds'))
+            delay_autoskip = int(self.addon.getSetting('delay_autoskip'))
+            auto_dismiss_button = int(self.addon.getSetting('auto_dismiss_button'))
+
+            # Ensure pre-skip seconds within reasonable bounds
+            if pre_skip_seconds < 0:
+                pre_skip_seconds = 3
+                self.addon.setSetting('pre_skip_seconds', '3')
+            elif pre_skip_seconds > 10:
+                pre_skip_seconds = 10
+                self.addon.setSetting('pre_skip_seconds', '10')
+
+            # Ensure delay autoskip within reasonable bounds
+            if delay_autoskip < 0:
+                delay_autoskip = 0
+                self.addon.setSetting('delay_autoskip', '0')
+            elif delay_autoskip > 30:
+                delay_autoskip = 30
+                self.addon.setSetting('delay_autoskip', '30')
+
+            # Ensure auto dismiss button within reasonable bounds
+            if auto_dismiss_button < 0:
+                auto_dismiss_button = 0
+                self.addon.setSetting('auto_dismiss_button', '0')
+            elif auto_dismiss_button > 30:
+                auto_dismiss_button = 30
+                self.addon.setSetting('auto_dismiss_button', '30')
+
             return {
-                'default_delay': default_delay,
-                'skip_duration': skip_duration,
-                'use_chapters': use_chapters,
-                'use_api': use_api,
-                'save_times': save_times,
-                'intro_start_chapter': intro_start_chapter,
-                'intro_end_chapter': intro_end_chapter,
-                'outro_start_chapter': outro_start_chapter,
-                'intro_start_time': intro_start_time,
-                'intro_end_time': intro_end_time,
-                'outro_start_time': outro_start_time
+                'enable_autoskip': enable_autoskip,
+                'pre_skip_seconds': pre_skip_seconds,
+                'delay_autoskip': delay_autoskip,
+                'auto_dismiss_button': auto_dismiss_button
             }
         except ValueError as e:
-            xbmc.log('SkipIntro: Error reading settings: {} - using defaults'.format(str(e)), xbmc.LOGERROR)
+            xbmc.log(f'SkipIntro: Error reading settings: {str(e)} - using defaults', xbmc.LOGERROR)
             return {
-                'default_delay': 30,
-                'skip_duration': 60,
-                'use_chapters': True,
-                'use_api': False,
-                'save_times': True,
-                'intro_start_chapter': 0,
-                'intro_end_chapter': 1,
-                'outro_start_chapter': None,
-                'intro_start_time': 0,
-                'intro_end_time': 90,
-                'outro_start_time': None
+                'enable_autoskip': True,
+                'pre_skip_seconds': 3,
+                'delay_autoskip': 0,
+                'auto_dismiss_button': 0
             }
 
     def get_setting(self, key):
